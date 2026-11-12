@@ -1,4 +1,4 @@
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, model_validator, Field
 from typing import List, Optional
 from datetime import datetime, time, date
 
@@ -25,6 +25,7 @@ class SingleEventCreate(BaseModel):
 
 
 class SingleEventUpdate(BaseModel):
+    title: Optional[str] = None
     start_datetime: datetime
     end_datetime: datetime
 
@@ -38,6 +39,10 @@ class SingleEventUpdate(BaseModel):
         if self.start_datetime >= self.end_datetime:
             raise ValueError("start_datetime must be before end_datetime")
         return self
+
+
+class RecurringEventUpdate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=255, description="Новое название повторяющегося события")
 
 
 class RecurringEventCreate(BaseModel):

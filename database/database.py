@@ -1027,10 +1027,14 @@ class Database:
                 (telegram_id, booking_id),
                 fetchall=True,
             )
-
+            
             if not rows:
                 await self.connection.rollback()
                 return {"status": "not_found"}
+
+            if not rows[0][5]:
+                await self.connection.rollback()
+                return {"status": "old_booking"}
 
             rows_by_slot = {row[2]: row for row in rows}
             location = rows[0][0]
@@ -1573,6 +1577,17 @@ class Database:
             await self.connection.rollback()
             logger.exception("create_recurring_events_bulk failed: calendar_id=%s", calendar_id)
             return []
+
+    @serialized_transaction
+    async def update_recurring_event_title(self, event_id: int, title: str) -> Optional[dict]:
+        """Обновляет название повторяющегося события."""
+        sql = "UPDATE recurring_events SET title=? WHERE id=?"
+        try:
+            await self.execute(sql, parameters=(title, event_id), commit=True)
+            return await self.get_recurring_event(event_id)
+        except Exception:
+            logger.exception("update_recurring_event_title failed: event_id=%s", event_id)
+            return None
 
     @serialized_transaction
     async def delete_recurring_event(self, event_id: int) -> bool:

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Header, HTTPException
 
 from database.database import db
 from calendar_api.helpers import require_calendar_access, _check_capacity
-from config.event import CancelInstanceRequest, SingleEventUpdate
+from config.event import CancelInstanceRequest, SingleEventUpdate, RecurringEventUpdate
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +57,26 @@ async def update_single_event(
     updated = await db.update_single_event(id, start_str, end_str, event_update.title)
     if not updated:
         raise HTTPException(status_code=500, detail="Failed to update event")
+
+    return updated
+
+
+@router.patch("/recurring-events/{id}")
+async def update_recurring_event(
+    id: int,
+    event_update: RecurringEventUpdate,
+    telegram_id: int = Header(..., alias="X-Telegram-Id"),
+):
+    """Обновить название повторяющегося события."""
+    event = await db.get_recurring_event(id)
+    if not event:
+        raise HTTPException(status_code=404, detail="Recurring event not found")
+
+    await require_calendar_access(event["calendar_id"], telegram_id)
+
+    updated = await db.update_recurring_event_title(id, event_update.title)
+    if not updated:
+        raise HTTPException(status_code=500, detail="Failed to update recurring event")
 
     return updated
 

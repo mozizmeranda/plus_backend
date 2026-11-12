@@ -137,5 +137,7 @@ async def reschedule_booking(body: models.RescheduleBooking):
             return _error(status.HTTP_400_BAD_REQUEST, f"Слот {result['slot']} уже есть в этой брони")
         case "unknown_old_slot":
             return _error(status.HTTP_400_BAD_REQUEST, f"Слота {result['slot']} нет в брони")
+        case "old_booking":
+            return _error(status.HTTP_400_BAD_REQUEST, f"Перенос можно делать только для новых броней")
         case _:  # not_found
             return _error(status.HTTP_403_FORBIDDEN, "У вас нет доступа к этому бронированию")
