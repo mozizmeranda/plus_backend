@@ -7,10 +7,10 @@ def is_valid_phone(phone):
     return bool(re.match(pattern, phone))
     
 offer_message = {
-    "ru": "Перед бронированием, пожалуйста, ознакомьтесь с <a href=\"https://telegra.ph/Pravila-arendy-korta-Ace-Club-05-19\">условиями публичной оферты</a>.\n\nПродолжая, вы подтверждаете согласие с условиями.",
-    "en": "Before booking, please review the <a href=\"https://telegra.ph/Ace-Club-Court-Rental-Rules-05-19\">public offer terms</a>.\n\nBy continuing, you agree to the terms.",
-    "uz": "Bron qilishdan oldin, iltimos, <a href=\"https://telegra.ph/Ace-Club-kortini-ijaraga-olish-qoidalari-05-19\">ommaviy oferta shartlari</a> bilan tanishing.\n\nDavom etish orqali siz shartlarga rozilik bildirasiz.",
-    "uz-cyr": "Брон қилишдан олдин, илтимос, <a href=\"https://telegra.ph/Ace-Club-kortini-izharaga-olish-%D2%9Boidalari-05-19\">оммавий оферта шартлари</a> билан танишинг.\n\nДавом этиш орқали сиз шартларга розилик билдирасиз."
+    "ru": "Перед бронированием, пожалуйста, ознакомьтесь с <a href=\"https://telegra.ph/PUBLICHNAYA-OFERTA-04-12-4\">условиями публичной оферты</a>.\n\nПродолжая, вы подтверждаете согласие с условиями.",
+    "en": "Before booking, please review the <a href=\"https://telegra.ph/PUBLIC-OFFER-04-12\">public offer terms</a>.\n\nBy continuing, you agree to the terms.",
+    "uz": "Bron qilishdan oldin, iltimos, <a href=\"https://telegra.ph/OMMAVIY-OFERTA-04-12\">ommaviy oferta shartlari</a> bilan tanishing.\n\nDavom etish orqali siz shartlarga rozilik bildirasiz.",
+    "uz-cyr": "Брон қилишдан олдин, илтимос, <a href=\"https://telegra.ph/OMMAVIJ-OFERTA-04-12\">оммавий оферта шартлари</a> билан танишинг.\n\nДавом этиш орқали сиз шартларга розилик билдирасиз."
 }
 
 
